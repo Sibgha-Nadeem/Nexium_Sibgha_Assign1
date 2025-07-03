@@ -1,20 +1,21 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { quotes } from './quotes'
 
-export default function QuoteGeneratorPage() {
-  const [topic, setTopic] = useState("");
-  const [quotes, setQuotes] = useState<string[]>([
-    "Life is what happens when you’re busy making other plans.",
-    "Get busy living or get busy dying.",
-    "Dream big and dare to fail.",
-    "Your time is limited, don’t waste it.",
-  ]);
+export default function Home() {
+  const [topic, setTopic] = useState("")
+  const [results, setResults] = useState<string[]>([])
 
-  const handleGetQuotes = () => {
-    // TODO: Replace this with API logic
-    console.log(`Fetching quotes for topic: ${topic}`);
-  };
+  const handleSubmit = () => {
+    const filtered = quotes
+      .filter(q => q.topic.toLowerCase() === topic.trim().toLowerCase())
+      .slice(0, 3)
+      .map(q => q.text)
+    setResults(filtered)
+  }
 
   return (
     <div className="min-h-screen bg-[#f5f0e6] text-[#2f2f2f] font-sans">
@@ -23,54 +24,59 @@ export default function QuoteGeneratorPage() {
         MY QUOTE GENERATOR
       </header>
 
-      {/* Banner */}
-      <div
-        className="bg-cover bg-center text-center text-white py-6 px-4"
-        style={{
-          backgroundImage: "url('banner.jpeg')", // <-- Put your banner image in /public
-        }}
-      >
-        <h2 className="text-xl md:text-2xl font-light leading-relaxed">
-          Quickly generate meaningful <br />
-          quotes to brighten your day!
-        </h2>
-      </div>
+      {/* Full-width Banner with margin top */}
+     {/* Full-width Banner with left-aligned text */}
+<div className="relative w-full h-48 md:h-64 mt-4">
+  <img
+    src="/banner.jpeg"
+    alt="Banner"
+    className="object-cover w-full h-full"
+  />
+  <div className="absolute inset-0 flex items-center justify-start px-4 text-left">
+    <h2 className="text-white text-2xl md:text-4xl font-semibold bg-black/40 px-6 py-3 rounded-md ml-4">
+      Quickly generate meaningful <br />
+      quotes to brighten your day!
+    </h2>
+  </div>
+</div>
 
-      {/* Input Section */}
-      <section className="py-10 text-center">
-        <label className="block text-lg mb-3 font-medium">Enter Topic:</label>
-        <div className="flex justify-center items-center gap-2 flex-wrap">
-          <input
-            type="text"
+
+      {/* Main Content */}
+      <main className="px-6 py-10 max-w-xl mx-auto text-center">
+        <label className="block text-lg mb-4 font-medium">Enter Topic:</label>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <Input
+            placeholder="e.g. life, inspiration"
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
-            placeholder="enter topic like life, inspiration etc"
-            className="bg-[#6c5a50] placeholder-[#e5e5e5] text-white px-4 py-2 rounded-md shadow-md w-72 focus:outline-none"
+            className="bg-[#6c5a50] text-white placeholder-[#e5e5e5] w-full sm:w-64"
           />
-          <button
-            onClick={handleGetQuotes}
-            className="bg-[#3e2f1c] hover:bg-[#5a422d] text-white px-4 py-2 rounded-md shadow-md"
+          <Button
+            onClick={handleSubmit}
+            className="bg-[#3e2f1c] hover:bg-[#5a422d] text-white"
           >
             Get Quotes
-          </button>
+          </Button>
         </div>
-      </section>
 
-      {/* Quotes Display */}
-      <section className="px-6 md:px-12 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {quotes.map((quote, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-4 rounded-md relative shadow-sm"
-            >
-              <span className="text-[#c9a66b] text-3xl absolute top-[-10px] left-[-10px]">“</span>
-              <p className="text-md pl-4 pr-2">{quote}</p>
-              <span className="text-[#c9a66b] text-3xl absolute bottom-[-10px] right-[-10px]">”</span>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Results */}
+        <section className="mt-10 space-y-4 text-left">
+          {results.length > 0 ? (
+            results.map((quote, i) => (
+              <div
+                key={i}
+                className="bg-white p-4 rounded-md relative shadow-sm"
+              >
+                <span className="text-[#c9a66b] text-3xl absolute top-[-10px] left-[-10px]">“</span>
+                <p className="text-md pl-4 pr-2">{quote}</p>
+                <span className="text-[#c9a66b] text-3xl absolute bottom-[-10px] right-[-10px]">”</span>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-600 text-lg italic">No quotes found. Try another topic.</p>
+          )}
+        </section>
+      </main>
     </div>
-  );
+  )
 }
