@@ -21,46 +21,49 @@ export default function Home() {
     <div className="min-h-screen bg-[#f5f0e6] text-[#2f2f2f] font-sans">
       {/* Header */}
       <header className="bg-[#3e2f1c] text-white text-center py-5 text-xl font-semibold tracking-wide">
-        MY QUOTE GENERATOR
+        WELCOME TO MY QUOTE GENERATOR
       </header>
 
-      {/* Full-width Banner with margin top */}
-     {/* Full-width Banner with left-aligned text */}
-<div className="relative w-full h-48 md:h-64 mt-4">
-  <img
-    src="/banner.jpeg"
-    alt="Banner"
-    className="object-cover w-full h-full"
-  />
-  <div className="absolute inset-0 flex items-center justify-start px-4 text-left">
-    <h2 className="text-white text-2xl md:text-4xl font-semibold bg-black/40 px-6 py-3 rounded-md ml-4">
-      Quickly generate meaningful <br />
-      quotes to brighten your day!
-    </h2>
-  </div>
-</div>
-
+      {/* Banner */}
+      <div className="relative w-full h-48 md:h-64 mt-4">
+        <img
+          src="/banner.jpeg"
+          alt="Banner"
+          className="object-cover w-full h-full opacity-75"
+        />
+        <div className="absolute inset-0 flex items-center justify-start px-4 text-left">
+          <h2 className="text-white drop-shadow-lg text-2xl md:text-4xl font-bold leading-snug">
+            Quickly generate meaningful <br />
+            quotes to brighten your day!
+          </h2>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <main className="px-6 py-10 max-w-xl mx-auto text-center">
-        <label className="block text-lg mb-4 font-medium">Enter Topic:</label>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+      <main className="px-6 py-10 max-w-4xl mx-auto text-center">
+
+        <label className="block text-4xl mb-6 font-bold text-[#3e2f1c] font-[Playfair Display]">
+          Enter Topic:
+        </label>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-2 mb-10">
           <Input
-            placeholder="e.g. life, inspiration"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-            className="bg-[#6c5a50] text-white placeholder-[#e5e5e5] w-full sm:w-64"
-          />
+  placeholder="enter topic like life, inspiration etc"
+  value={topic}
+  onChange={(e) => setTopic(e.target.value)}
+  className="bg-[#6c5a50] text-[#f5f0e6] placeholder-[#d7cbbf] placeholder:text-xl w-full sm:w-[400px] h-[64px] px-6 text-xl rounded-xl font-[Playfair Display] shadow-md border-none"
+/>
+
           <Button
             onClick={handleSubmit}
-            className="bg-[#3e2f1c] hover:bg-[#5a422d] text-white"
+            className="bg-[#3e2f1c] hover:bg-[#5a422d] text-white px-8 h-[64px] text-lg rounded-xl font-[Playfair Display] shadow-md"
           >
             Get Quotes
           </Button>
         </div>
 
         {/* Results */}
-        <section className="mt-10 space-y-4 text-left">
+        <section className="mt-10 space-y-4 text-left font-[Playfair Display]">
           {results.length > 0 ? (
             results.map((quote, i) => (
               <div
