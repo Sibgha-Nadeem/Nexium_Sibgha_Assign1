@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { quotes } from './quotes'
+import quotes from './quotes'; 
 
 export default function Home() {
   const [topic, setTopic] = useState("")
